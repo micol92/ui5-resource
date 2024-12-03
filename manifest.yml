@@ -1,0 +1,13 @@
+---
+applications:
+
+  - name: ui5webserver
+
+    memory: 4000M
+    disk_quota: 10240M
+    timeout: 300
+    random-route: true
+    path: .
+
+    buildpacks:
+      - staticfile_buildpack

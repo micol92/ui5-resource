@@ -1,0 +1,25 @@
+_schema-version: 3.3.0
+ID: ui5-resource
+version: 1.0.0
+
+modules:
+  - name: ui5-resource
+    type: staticfile
+    path: ./
+    parameters:
+      buildpack: staticfile_buildpack
+      keep-existing-routes: true
+      disk-quota: 2048M
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -f result.zip
+        - cp sapui5-rt-1.130.0.zip result.zip
+        - zip -ur result.zip Staticfile
+        - zip -ur result.zip nginx
+#        - zip -ur result.zip resources
+      build-result: result.zip
+    provides:
+      - name: res-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          res-url: ${default-url}
